@@ -1,0 +1,4 @@
+__pycache__/
+ckanext_pagessearch.egg-info/
+build/
+dist/

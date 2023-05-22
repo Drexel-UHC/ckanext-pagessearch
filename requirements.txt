@@ -1,0 +1,2 @@
+ckanext-pages>=0.5.1
+ckanext-sitesearch>=0.2.4
