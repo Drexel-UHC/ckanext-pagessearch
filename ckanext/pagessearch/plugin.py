@@ -6,6 +6,7 @@ from ckanext.pagessearch.blueprint import pages
 class PagesSearch(plugin.SingletonPlugin):
 
     plugin.implements(plugin.IBlueprint)
+    plugin.implements(plugin.IConfigurer)
     
     def get_blueprint(self):
         
@@ -14,3 +15,11 @@ class PagesSearch(plugin.SingletonPlugin):
         """
 
         return pages
+    
+    def update_config(self, config):
+
+        """
+        Add templates to plugin
+        """
+
+        tk.add_template_directory(config, "templates")
