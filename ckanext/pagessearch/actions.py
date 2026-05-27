@@ -15,9 +15,6 @@ def get_recent_resources(context, data_dict):
         context={}, data_dict=data_dict
     )
 
-    print(pages)
-    print(pages[0])
-
     return pages[:return_limit]
 
 
