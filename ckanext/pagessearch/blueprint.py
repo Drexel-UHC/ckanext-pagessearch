@@ -5,8 +5,8 @@ import ckan.plugins.toolkit as tk
 import ckan.logic as logic
 import ckan.lib.helpers as helpers
 
-from ckanext.pages.blueprint import pages
 import ckanext.pages.utils as pages_utils
+from flask import Blueprint
 
 def search_pages(page_type: str):
     """
@@ -14,7 +14,7 @@ def search_pages(page_type: str):
     """
 
     item_limit = tk.config.get('ckanext.pagessearch.item_limit', 10)
-      
+
     # if type is blog, use the default function from ckanext-pages
     if page_type == "blog":
         pages_utils.pages_list_pages(page_type)
@@ -35,6 +35,7 @@ def search_pages(page_type: str):
     }
 
     # get response object from API call
+    # calls page_search action from ckanext-sitesearch
     tk.g.pages_dict = tk.get_action("page_search")(context={}, data_dict=query_dict)
 
     # ceate the page variable to pass into the template
@@ -53,8 +54,8 @@ def search_pages(page_type: str):
     return tk.render("pages_list_search.html", extra_vars)
 
 def index():
-    
+
     return search_pages("page")
 
-
-pages.add_url_rule(tk.config.get("ckanext.pagessearch.pages_search_url", "/pages_search"), view_func=index, endpoint="pages_index_new")
+pages_search = Blueprint("pages_search", __name__)
+pages_search.add_url_rule(tk.config.get("ckanext.pagessearch.pages_search_url", "/pages_search"), view_func=index, endpoint="pages_index_new")

@@ -2,7 +2,7 @@ import ckan.plugins as plugin
 import ckan.plugins.toolkit as tk
 from ckanext.pagessearch.actions import get_recent_resources
 
-from ckanext.pagessearch.blueprint import pages
+from ckanext.pagessearch.blueprint import pages_search
 
 class PagesSearch(plugin.SingletonPlugin):
 
@@ -10,15 +10,15 @@ class PagesSearch(plugin.SingletonPlugin):
     plugin.implements(plugin.IConfigurer)
     plugin.implements(plugin.IActions)
     plugin.implements(plugin.ITemplateHelpers)
-    
+
     def get_blueprint(self):
-        
+
         """
         Get the new pages blueprint and load it
         """
 
-        return pages
-    
+        return pages_search
+
     def update_config(self, config):
 
         """
@@ -31,13 +31,13 @@ class PagesSearch(plugin.SingletonPlugin):
         """
         Get actions for the citations
         """
-        
+
         return {"get_recent_resources": get_recent_resources}
-    
+
     def list_recent_resources(self):
 
         return get_recent_resources(None, {})
-    
+
     def get_helpers(self):
 
         return {"get_recent_resources": self.list_recent_resources}
